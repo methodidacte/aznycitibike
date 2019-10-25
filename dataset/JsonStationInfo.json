@@ -1,0 +1,115 @@
+{
+	"name": "JsonStationInfo",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "HttpStationRealTime",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "HttpServerLocation",
+				"relativeUrl": "station_information.json"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"last_updated": {
+					"type": "integer"
+				},
+				"ttl": {
+					"type": "integer"
+				},
+				"data": {
+					"type": "object",
+					"properties": {
+						"stations": {
+							"type": "array",
+							"items": {
+								"type": "object",
+								"properties": {
+									"station_id": {
+										"type": "string"
+									},
+									"external_id": {
+										"type": "string"
+									},
+									"name": {
+										"type": "string"
+									},
+									"short_name": {
+										"type": "string"
+									},
+									"lat": {
+										"type": "number"
+									},
+									"lon": {
+										"type": "number"
+									},
+									"region_id": {
+										"type": "integer"
+									},
+									"rental_methods": {
+										"type": "array",
+										"items": {
+											"type": "string"
+										}
+									},
+									"capacity": {
+										"type": "integer"
+									},
+									"rental_url": {
+										"type": "string"
+									},
+									"electric_bike_surcharge_waiver": {
+										"type": "boolean"
+									},
+									"eightd_has_key_dispenser": {
+										"type": "boolean"
+									},
+									"eightd_station_services": {
+										"type": "array",
+										"items": {
+											"type": "object",
+											"properties": {
+												"id": {
+													"type": "string"
+												},
+												"service_type": {
+													"type": "string"
+												},
+												"bikes_availability": {
+													"type": "string"
+												},
+												"docks_availability": {
+													"type": "string"
+												},
+												"name": {
+													"type": "string"
+												},
+												"description": {
+													"type": "string"
+												},
+												"schedule_description": {
+													"type": "string"
+												},
+												"link_for_more_info": {
+													"type": "string"
+												}
+											}
+										}
+									},
+									"has_kiosk": {
+										"type": "boolean"
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
