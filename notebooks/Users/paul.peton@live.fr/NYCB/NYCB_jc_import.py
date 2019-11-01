@@ -7,10 +7,6 @@ df_jc = spark.read.format("csv").option("header", "true").option("inferSchema", 
 
 # COMMAND ----------
 
-print(df_jc.count())
-
-# COMMAND ----------
-
 df_jc = df_jc.withColumnRenamed('Trip Duration', 'tripduration')
 df_jc = df_jc.withColumnRenamed('start time', 'starttime')
 df_jc = df_jc.withColumnRenamed('stop time', 'stoptime')
@@ -32,10 +28,6 @@ df_jc.write.mode('overwrite').format("parquet").saveAsTable("jc_citibike")
 
 # COMMAND ----------
 
-# %run path/to/NotebookB $VarA="ValueA" $VarB="ValueB"
-
-# COMMAND ----------
-
 import json
 
 dbutils.notebook.exit(
@@ -48,6 +40,3 @@ dbutils.notebook.exit(
 # COMMAND ----------
 
 dbutils.notebook.exit("end of data collection (initial notebook)")
-
-# COMMAND ----------
-
