@@ -1,5 +1,6 @@
 # Databricks notebook source
 param_dev = dbutils.widgets.get("wEnv")
+# le paramètre est le répertoire contenant les fichiers sur le point de montage
 
 # COMMAND ----------
 
