@@ -34,6 +34,11 @@ df_jc.write.mode('overwrite').format("parquet").saveAsTable("jc_citibike")
 
 # COMMAND ----------
 
+# MAGIC %sql
+# MAGIC SHOW DATABASE
+
+# COMMAND ----------
+
 print(df_jc.count())
 
 # COMMAND ----------
