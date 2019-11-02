@@ -4,6 +4,11 @@ param_dev = dbutils.widgets.get("wEnv")
 
 # COMMAND ----------
 
+# ajouter le schéma du nom de fichier en paramètre
+filename = 'JC'
+
+# COMMAND ----------
+
 df_jc = spark.read.format("csv").option("header", "true").option("inferSchema", "true").load("/mnt/"+param_dev+"/JC*")
 
 # COMMAND ----------
