@@ -1,0 +1,35 @@
+{
+	"name": "HTTPZIPcitibike2",
+	"properties": {
+		"description": "Download all zip files in :\nurl equal to 'https://s3.amazonaws.com/tripdata' \nmatch with :\n'<Key>(?P<url>\\d*?-citibike-tripdata.zip)<\\/Key>' \nand\n'<Key>(?P<url>\\d*?-citibike-tripdata.csv.zip)<\\/Key>'.",
+		"linkedServiceName": {
+			"referenceName": "HTTPjccitibike",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"year": {
+				"type": "string",
+				"defaultValue": "2013"
+			},
+			"month": {
+				"type": "string",
+				"defaultValue": "06"
+			}
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "HttpServerLocation",
+				"relativeUrl": {
+					"value": "@concat(dataset().year,dataset().month,'-citibike-tripdata.csv.zip')",
+					"type": "Expression"
+				}
+			},
+			"compression": {
+				"type": "ZipDeflate"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

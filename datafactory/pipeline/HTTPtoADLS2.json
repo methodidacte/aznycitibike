@@ -1,0 +1,342 @@
+{
+	"name": "HTTPtoADLS2",
+	"properties": {
+		"activities": [
+			{
+				"name": "ForEachYearMonth",
+				"type": "ForEach",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.ym_items",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "CopyZIPtoADLS",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "BinarySource",
+									"storeSettings": {
+										"type": "HttpReadSettings",
+										"requestMethod": "GET"
+									}
+								},
+								"sink": {
+									"type": "BinarySink",
+									"storeSettings": {
+										"type": "AzureBlobFSWriteSettings"
+									}
+								},
+								"enableStaging": false
+							},
+							"inputs": [
+								{
+									"referenceName": "HTTPZIPcitibike2",
+									"type": "DatasetReference",
+									"parameters": {
+										"year": "@item().source.year",
+										"month": "@item().source.month"
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "ADLSZIPcitibike",
+									"type": "DatasetReference",
+									"parameters": {
+										"yearfolder": "@item().source.year"
+									}
+								}
+							]
+						},
+						{
+							"name": "CopyZIPtoADLSCSV",
+							"type": "Copy",
+							"dependsOn": [
+								{
+									"activity": "CopyZIPtoADLS",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "BinarySource",
+									"storeSettings": {
+										"type": "HttpReadSettings",
+										"requestMethod": "GET"
+									}
+								},
+								"sink": {
+									"type": "BinarySink",
+									"storeSettings": {
+										"type": "AzureBlobFSWriteSettings"
+									}
+								},
+								"enableStaging": false
+							},
+							"inputs": [
+								{
+									"referenceName": "HTTPZIPcitibike2",
+									"type": "DatasetReference",
+									"parameters": {
+										"year": "@item().source.year",
+										"month": "@item().source.month"
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "ADLSCSVcitibike",
+									"type": "DatasetReference",
+									"parameters": {
+										"yearfolder": "@item().source.year"
+									}
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"ym_items": {
+				"type": "array",
+				"defaultValue": [
+					{
+						"source": {
+							"year": "2017",
+							"month": "01"
+						}
+					},
+					{
+						"source": {
+							"year": "2017",
+							"month": "02"
+						}
+					},
+					{
+						"source": {
+							"year": "2017",
+							"month": "03"
+						}
+					},
+					{
+						"source": {
+							"year": "2017",
+							"month": "04"
+						}
+					},
+					{
+						"source": {
+							"year": "2017",
+							"month": "05"
+						}
+					},
+					{
+						"source": {
+							"year": "2017",
+							"month": "06"
+						}
+					},
+					{
+						"source": {
+							"year": "2017",
+							"month": "07"
+						}
+					},
+					{
+						"source": {
+							"year": "2017",
+							"month": "08"
+						}
+					},
+					{
+						"source": {
+							"year": "2017",
+							"month": "09"
+						}
+					},
+					{
+						"source": {
+							"year": "2017",
+							"month": "10"
+						}
+					},
+					{
+						"source": {
+							"year": "2017",
+							"month": "11"
+						}
+					},
+					{
+						"source": {
+							"year": "2017",
+							"month": "12"
+						}
+					},
+					{
+						"source": {
+							"year": "2018",
+							"month": "01"
+						}
+					},
+					{
+						"source": {
+							"year": "2018",
+							"month": "02"
+						}
+					},
+					{
+						"source": {
+							"year": "2018",
+							"month": "03"
+						}
+					},
+					{
+						"source": {
+							"year": "2018",
+							"month": "04"
+						}
+					},
+					{
+						"source": {
+							"year": "2018",
+							"month": "05"
+						}
+					},
+					{
+						"source": {
+							"year": "2018",
+							"month": "06"
+						}
+					},
+					{
+						"source": {
+							"year": "2018",
+							"month": "07"
+						}
+					},
+					{
+						"source": {
+							"year": "2018",
+							"month": "08"
+						}
+					},
+					{
+						"source": {
+							"year": "2018",
+							"month": "09"
+						}
+					},
+					{
+						"source": {
+							"year": "2018",
+							"month": "10"
+						}
+					},
+					{
+						"source": {
+							"year": "2018",
+							"month": "11"
+						}
+					},
+					{
+						"source": {
+							"year": "2018",
+							"month": "12"
+						}
+					},
+					{
+						"source": {
+							"year": "2019",
+							"month": "01"
+						}
+					},
+					{
+						"source": {
+							"year": "2019",
+							"month": "02"
+						}
+					},
+					{
+						"source": {
+							"year": "2019",
+							"month": "03"
+						}
+					},
+					{
+						"source": {
+							"year": "2019",
+							"month": "04"
+						}
+					},
+					{
+						"source": {
+							"year": "2019",
+							"month": "05"
+						}
+					},
+					{
+						"source": {
+							"year": "2019",
+							"month": "06"
+						}
+					},
+					{
+						"source": {
+							"year": "2019",
+							"month": "07"
+						}
+					},
+					{
+						"source": {
+							"year": "2019",
+							"month": "08"
+						}
+					},
+					{
+						"source": {
+							"year": "2019",
+							"month": "09"
+						}
+					},
+					{
+						"source": {
+							"year": "2019",
+							"month": "10"
+						}
+					}
+				]
+			}
+		},
+		"variables": {
+			"Final_Json": {
+				"type": "Array"
+			}
+		},
+		"annotations": []
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

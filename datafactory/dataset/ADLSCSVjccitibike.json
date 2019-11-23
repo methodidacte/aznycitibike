@@ -1,0 +1,27 @@
+{
+	"name": "ADLSCSVjccitibike",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ADLScitibike",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"yearfolder": {
+				"type": "string",
+				"defaultValue": "2015"
+			}
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileSystem": {
+					"value": "@concat('nyjccitibike','/CSV/',dataset().yearfolder)",
+					"type": "Expression"
+				}
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

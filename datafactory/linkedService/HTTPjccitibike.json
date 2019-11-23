@@ -1,0 +1,14 @@
+{
+	"name": "HTTPjccitibike",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"description": "A partir de JC-201509-citibike-tripdata.csv.zip",
+		"annotations": [],
+		"type": "HttpServer",
+		"typeProperties": {
+			"url": "https://s3.amazonaws.com/tripdata/",
+			"enableServerCertificateValidation": true,
+			"authenticationType": "Anonymous"
+		}
+	}
+}

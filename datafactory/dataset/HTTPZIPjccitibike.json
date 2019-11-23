@@ -1,0 +1,34 @@
+{
+	"name": "HTTPZIPjccitibike",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "HTTPjccitibike",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"year": {
+				"type": "string",
+				"defaultValue": "2015"
+			},
+			"month": {
+				"type": "string",
+				"defaultValue": "09"
+			}
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "HttpServerLocation",
+				"relativeUrl": {
+					"value": "@concat('JC-',dataset().year,dataset().month,'-citibike-tripdata.csv.zip')",
+					"type": "Expression"
+				}
+			},
+			"compression": {
+				"type": "ZipDeflate"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

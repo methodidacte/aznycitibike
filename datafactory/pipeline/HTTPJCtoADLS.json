@@ -1,0 +1,139 @@
+{
+	"name": "HTTPJCtoADLS",
+	"properties": {
+		"activities": [
+			{
+				"name": "ForEachYearMonth",
+				"type": "ForEach",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.ym_items",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "CopyJCZIPtoADLS",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "BinarySource",
+									"storeSettings": {
+										"type": "HttpReadSettings",
+										"requestMethod": "GET"
+									}
+								},
+								"sink": {
+									"type": "BinarySink",
+									"storeSettings": {
+										"type": "AzureBlobFSWriteSettings"
+									}
+								},
+								"enableStaging": false
+							},
+							"inputs": [
+								{
+									"referenceName": "HTTPZIPjccitibike",
+									"type": "DatasetReference",
+									"parameters": {
+										"year": "@item().source.year",
+										"month": "@item().source.month"
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "ADLSZIPjccitibike",
+									"type": "DatasetReference",
+									"parameters": {
+										"yearfolder": "@item().source.year"
+									}
+								}
+							]
+						},
+						{
+							"name": "CopyJCZIPtoADLSCSV",
+							"type": "Copy",
+							"dependsOn": [
+								{
+									"activity": "CopyJCZIPtoADLS",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "BinarySource",
+									"storeSettings": {
+										"type": "HttpReadSettings",
+										"requestMethod": "GET"
+									}
+								},
+								"sink": {
+									"type": "BinarySink",
+									"storeSettings": {
+										"type": "AzureBlobFSWriteSettings"
+									}
+								},
+								"enableStaging": false
+							},
+							"inputs": [
+								{
+									"referenceName": "HTTPZIPjccitibike",
+									"type": "DatasetReference",
+									"parameters": {
+										"year": "@item().source.year",
+										"month": "@item().source.month"
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "ADLSCSVjccitibike",
+									"type": "DatasetReference",
+									"parameters": {
+										"yearfolder": "@item().source.year"
+									}
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"ym_items": {
+				"type": "array",
+				"defaultValue": [
+					{
+						"source": {
+							"year": "2015",
+							"month": "09"
+						}
+					}
+				]
+			}
+		},
+		"annotations": []
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

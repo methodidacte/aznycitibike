@@ -1,0 +1,30 @@
+{
+	"name": "ADLSZIPjccitibike",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ADLScitibike",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"yearfolder": {
+				"type": "string",
+				"defaultValue": "2015"
+			}
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileSystem": {
+					"value": "@concat('nyjccitibike','/ZIP/',dataset().yearfolder)",
+					"type": "Expression"
+				}
+			},
+			"compression": {
+				"type": "ZipDeflate"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
